@@ -1,7 +1,7 @@
 dhellmann.docker-ce
 ===================
 
-Install docker-ce on CentOS.
+Install docker-ce on CentOS, based on https://docs.docker.com/install/linux/docker-ce/centos/
 
 Requirements
 ------------

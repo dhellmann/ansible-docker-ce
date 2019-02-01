@@ -1,0 +1,53 @@
+---
+- name: Remove old versions of packages
+  become: true
+  package:
+    state: absent
+    name:
+      - docker
+      - docker-client
+      - docker-client-latest
+      - docker-common
+      - docker-latest
+      - docker-latest-logrotate
+      - docker-logrotate
+      - docker-engine
+
+- name: Install pre-requisite packages
+  become: true
+  package:
+    state: latest
+    name:
+      - yum-utils
+      - device-mapper-persistent-data
+      - lvm2
+
+- name: Set up docker yum repository
+  become: true
+  yum_repository:
+    name: docker-ce
+    description: docker-ce
+    baseurl: https://download.docker.com/linux/centos/docker-ce.repo
+
+- name: Install docker-ce
+  become: true
+  package:
+    name: docker-ce
+
+- name: Start docker
+  become: true
+  service:
+    name: docker
+    state: started
+
+- name: Add docker group
+  become: true
+  group:
+    name: docker
+
+- name: Add the user to the docker group
+  become: true
+  user:
+    name: "{{ ansible_user_id }}"
+    groups: docker
+    append: yes

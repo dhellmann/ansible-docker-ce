@@ -25,7 +25,7 @@
 # Download the repo settings file instead of adding the settings
 # explicitly here because the file includes information about several
 # different repositories.
-- name: Set up docker yum repository
+- name: Set up docker yum repository # noqa 301
   become: true
   command: yum-config-manager --add-repo \
     https://download.docker.com/linux/centos/docker-ce.repo
